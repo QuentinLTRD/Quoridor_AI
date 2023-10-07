@@ -16,10 +16,12 @@ class Board():
         self.available_walls = np.array((10, 10))
         self._load_fen(fen)
 
+
     def __repr__(self) -> str:
-        mapping_cells = {EMPTY_CELL: "   ", PLAYER_1: " 1 ", PLAYER_2: " 2 "}
+        mapping_cells = {EMPTY_CELL: "   ", PLAYER_1: " X ", PLAYER_2: " 0 "}
         mapping_vwalls = {True: "#", False: "|"}
-        mapping_hwalls = {True: "###", False: "___"}
+        mapping_hwalls = {True: "###", False: "―――"}
+        WALL_INTERSECTION = 'o'
         board_repr = ""
 
         def _pick_items_alternatively(lst1, lst2):
@@ -28,39 +30,29 @@ class Board():
                 for i in pair if i is not None
             )
         
-        for x in range(self.board_size):
-            # builds the board's visual row by row from bottom to top
-            # builds a cell row
-            cell_row = _pick_items_alternatively(
-                [mapping_cells[c] for c in self.cells[:, x]],
-                [mapping_vwalls[w] for w in self.vwalls[:, x]]
+        for row_idx in range(self.board_size):
+            cells_vwalls = _pick_items_alternatively(
+                [mapping_cells[c] for c in self.cells[:, row_idx]],
+                [mapping_vwalls[w] for w in self.vwalls[:, row_idx]]
             )
-            
-            if x == (self.board_size // 2):
-                board_repr = f"\n{x + 1} {cell_row}     PLY : {self.ply}{board_repr}"
+            board_repr = f"\n{row_idx + 1} {cells_vwalls}{board_repr}"
 
-            elif x == (self.board_size - 1):
-                board_repr = f"\n{x + 1} {cell_row}     PLAYER 2 : {self.available_walls[1]} Walls{board_repr}"
-                board_repr += f"     PLAYER 1 : {self.available_walls[0]} Walls"
+            if row_idx == (self.board_size - 1):
                 continue
 
-            else:
-                board_repr = f"\n{x + 1} {cell_row}{board_repr}"
-
-            # builds a wall row
-            wall_row = _pick_items_alternatively(
-                [mapping_hwalls[w] for w in self.hwalls[:, x]],
-                8 * ['o']
+            hwalls = _pick_items_alternatively(
+                [mapping_hwalls[w] for w in self.hwalls[:, row_idx]],
+                (self.board_size - 1) * [WALL_INTERSECTION]
             )
-            board_repr = f"\n  {wall_row}{board_repr}"
+            board_repr = f"\n  {hwalls}{board_repr}"
 
-        # adds a bottom line with col coordinates
-        letter_col = " ".join(
+        letters = " ".join(
             [f" {ascii_lowercase[i]} " for i in range(self.board_size)]
         )
-        board_repr += f"\n  {letter_col}"
+        board_repr += f"\n  {letters}"
 
         return board_repr
+
     
     def _load_fen(self, fen):
         # walls available and ply are not taken into account when loading board
@@ -111,8 +103,3 @@ class Board():
             self.available_walls = np.array((p1_available_walls, p2_available_walls))
 
         _set_available_walls(available_walls)
-
-
-
-
-
