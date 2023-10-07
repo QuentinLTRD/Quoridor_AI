@@ -1,0 +1,2 @@
+Wikipedia for notations : https://en.wikipedia.org/wiki/Quoridor
+Strategy videos : https://www.youtube.com/@quoridorstrategy
