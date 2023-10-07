@@ -1,20 +1,28 @@
 def play_move(fen, move):
     # updates a fen given a move (wikipedia notations)
-    hwalls, vwalls, player_positions, available_walls, ply  = fen.split(" / ")
-    if move[-1] == "h":
-        fen = f"{hwalls}{move[:2]} / {vwalls} / {player_positions} / {available_walls} / {ply}"
+    hwalls, vwalls, player_positions, available_walls, active_player = fen.split(" / ")
+    active_player = int(active_player)
+    p1, p2 = player_positions.split(" ")
+    # number of walls available for each player
+    w1, w2 = [int(w) for w in available_walls.split(" ")]
 
-    elif move[-1] == "v":
-        fen = f"{hwalls} / {vwalls}{move[:2]} / {player_positions} / {available_walls} / {ply}"
-    
-    else:
-        p1, p2 = player_positions.split(" ")
-        if ply == 1:
-            fen = f"{hwalls} / {vwalls} / {move} {p2} / {available_walls} / {(int(ply) + 1)}"
+    if len(move) == 3:  # wall move
+        if move[-1] == "h":
+            hwalls = f"{hwalls} {move[:2]}"
+        elif move[-1] == "v":
+            vwalls = f"{vwalls} {move[:2]}"
         
+        if active_player == 1:
+            w1 -= 1
         else:
-            fen = f"{hwalls} / {vwalls} / {p1} {move} / {available_walls} / {(int(ply) - 1)}"
-    
+            w2 -= 1
+    else:  # player move
+        if active_player == 1:
+            p1 = move
+        else:
+            p2 = move
+
+    active_player = 1 + active_player % 2
+    fen = f"{hwalls} / {vwalls} / {p1} {p2} / {w1} {w2} / {active_player}"
+
     return fen
-
-

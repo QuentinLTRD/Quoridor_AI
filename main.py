@@ -19,6 +19,7 @@ if __name__ == "__main__":
         fen = play_move(fen, move)
         board = Board(fen=fen)
         print(board)
+        print(fen)
 
 
 
