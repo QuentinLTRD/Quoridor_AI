@@ -1,4 +1,5 @@
 def play_move(fen, move):
+    # updates a fen given a move (wikipedia notations)
     hwalls, vwalls, player_positions, available_walls, ply  = fen.split(" / ")
     if move[-1] == "h":
         fen = f"{hwalls}{move[:2]} / {vwalls} / {player_positions} / {available_walls} / {ply}"
