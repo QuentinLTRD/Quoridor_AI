@@ -1,2 +1,5 @@
-Wikipedia for notations : https://en.wikipedia.org/wiki/Quoridor
-Strategy videos : https://www.youtube.com/@quoridorstrategy
+Wikipedia for notations: https://en.wikipedia.org/wiki/Quoridor
+Strategy videos: https://www.youtube.com/@quoridorstrategy
+Useful github repositories: 
+    - MCTS with Quoridor implementation:
+    https://github.com/michaelbzms/MonteCarloTreeSearch/tree/main/examples/Quoridor
