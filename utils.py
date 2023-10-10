@@ -31,6 +31,7 @@ def play_move(fen, move):
             vwalls += move[:2]
 
         fences_left[active_player - 1] -= 1
+
     else:  # player move
         pawn_positions[active_player - 1] = move
 
