@@ -34,7 +34,7 @@ class State():
 
             if orient == "h":
                 self.hwalls[col, row] = True
-                self.hwalls[col+1, row] = True
+                self.hwalls[col + 1, row] = True
             else:  # otherwise orient == "v"
                 self.vwalls[col, row] = True
                 self.vwalls[col, row + 1] = True
