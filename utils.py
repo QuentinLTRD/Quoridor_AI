@@ -1,8 +1,18 @@
+from string import ascii_lowercase
+
+
 def not2pos(pos_notation):
-    # gets pos indexes from pos notation (ex: a1 -> 0, 0; d2 : 1, 3)
+    # gets pos indices from pos notation (ex: a1 -> 0, 0; d2 -> 1, 3)
     col = ord(pos_notation[0]) - 97  # convert lowercase to index
     row = int(pos_notation[1]) - 1  # rows index number is 1
     return row, col
+
+
+def pos2not(pos):
+    # get pos notation from pos indices (ex: 0, 0 -> a1 ; 1, 3 -> d2)
+    pos_col = ascii_lowercase[pos[0]]
+    pos_row = int(pos[1]) + 1
+    return f"{pos_col}{pos_row}"
 
 
 def play_move(fen, move):
@@ -21,6 +31,7 @@ def play_move(fen, move):
             vwalls += move[:2]
 
         fences_left[active_player - 1] -= 1
+
     else:  # player move
         pawn_positions[active_player - 1] = move
 
