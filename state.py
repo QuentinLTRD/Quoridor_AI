@@ -27,7 +27,7 @@ class State():
     def _place_walls(self, walls, orient="h"):
         # retrieves the list wall move coordinates
         # a wall move is denoted by the closest square to a1
-        wall_moves = [walls[i: i+2] for i in range(0, len(walls), 2)]
+        wall_moves = [walls[i: i + 2] for i in range(0, len(walls), 2)]
 
         for wall_move in wall_moves:
             row, col = not2pos(wall_move)
