@@ -1,0 +1,10 @@
+BOARD_SIZE = 9
+
+EMPTY_CELL = 0
+PLAYER_1 = 1
+PLAYER_2 = 2
+
+LEFT = (0, -1)
+RIGHT = (0, 1)
+DOWN = (-1, 0)
+UP = (1, 0)
