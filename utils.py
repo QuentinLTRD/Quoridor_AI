@@ -9,9 +9,9 @@ def not2pos(pos_notation):
 
 
 def pos2not(pos):
-    # get pos notation from pos indices (ex: 0, 0 -> a1 ; 1, 3 -> d2)
-    pos_col = ascii_lowercase[pos[0]]
-    pos_row = int(pos[1]) + 1
+    # get pos notation from pos indices (ex: (0, 0) -> a1 ; (1, 3) -> d2)
+    pos_row = int(pos[0]) + 1
+    pos_col = ascii_lowercase[pos[1]]
     return f"{pos_col}{pos_row}"
 
 
