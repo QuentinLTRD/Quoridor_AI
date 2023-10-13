@@ -5,7 +5,8 @@ from constants import LEFT, RIGHT, DOWN, UP
 from itertools import zip_longest, chain
 from string import ascii_lowercase
 from utils import not2pos, is_within_bounds
-from action import MovePawn
+from action import Action, MovePawn
+from typing import List
 
 
 class State():
@@ -23,7 +24,7 @@ class State():
         self.fences_left = [int(w) for w in fences_left.split(" ")]
         self.idx_player = int(active_player) - 1
 
-    def _place_walls(self, walls, orient="h"):
+    def _place_walls(self, walls, orient="h") -> None:
         # retrieves the list wall move coordinates
         # a wall move is denoted by the closest square to a1
         wall_moves = [walls[i: i + 2] for i in range(0, len(walls), 2)]
@@ -88,7 +89,7 @@ class State():
 
         return board_repr
 
-    def has_wall_collision(self, start, delta):
+    def has_wall_collision(self, start, delta) -> bool:
         mapping_delta_offset = {
             LEFT: (0, -1), RIGHT: (0, 0), DOWN: (-1, 0), UP: (0, 0)
         }
@@ -99,7 +100,7 @@ class State():
 
         return wall[col + offset[1], row + offset[0]]
 
-    def _compute_legal_pawn_moves(self):
+    def _compute_legal_pawn_moves(self) -> List[Action]:
         deltas = [LEFT, RIGHT, DOWN, UP]
         mapping_delta_adjacent_delta = {
             LEFT: [DOWN, UP],
@@ -156,8 +157,7 @@ class State():
 
         return legal_pawn_moves
 
-    def compute_legal_actions(self):
-
+    def compute_legal_actions(self) -> List[Action]:
         return list(
             chain(
                 self._compute_legal_pawn_moves()
