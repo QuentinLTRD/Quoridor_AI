@@ -1,4 +1,3 @@
-
 from utils import pos2not
 
 
